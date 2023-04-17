@@ -1,0 +1,46 @@
+---
+openapi: 3.0.1
+info:
+  title: MyRestAPI
+  version: 3.1.1
+servers:
+- url: "{server}:{port}/"
+  variables:
+    port:
+      default: '8090'
+    server:
+      default: http://localhost
+paths:
+  "/greeting":
+    get:
+      operationId: getGreeting
+      parameters:
+      - name: name
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Greeting"
+components:
+  schemas:
+    Greeting:
+      required:
+      - from
+      - message
+      - to
+      type: object
+      properties:
+        from:
+          type: string
+        message:
+          type: string
+        to:
+          type: string
